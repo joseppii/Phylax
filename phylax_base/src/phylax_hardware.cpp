@@ -1,5 +1,6 @@
 /**
-*
+*  \file       phylax_hardware.cpp 
+*  \brief      Implementation of class abstracting the Phylax hardware
 *  \author     Joseph Piperakis <i.piperakis@gmail.com>
 *  \copyright  Copyright (c) 2020, Joseph Piperakis.
 *
@@ -27,13 +28,10 @@
 */
 
 #include "phylax_base/phylax_hardware.h"
-#include "ros/ros.h"
 
-int main(int argc, char **argv)
+namespace phylax_base
 {
-  ros::init(argc, argv, "phylax_base");
-  ros::NodeHandle n;
 
-  return 0;
+PhylaxHardware::PhylaxHardware();
+
 }
-

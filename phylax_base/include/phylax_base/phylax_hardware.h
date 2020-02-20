@@ -1,5 +1,6 @@
 /**
-*
+*  \file       phylax_base.h 
+*  \brief      Declaration of class abstracting the Phylax hardware
 *  \author     Joseph Piperakis <i.piperakis@gmail.com>
 *  \copyright  Copyright (c) 2020, Joseph Piperakis.
 *
@@ -26,14 +27,25 @@
 *
 */
 
-#include "phylax_base/phylax_hardware.h"
+#ifndef PHYLAX_BASE_PHYLAX_HARDWARE_H
+#define PHYLAX_BASE_PHYLAX_HARDWARE_H
+
+#include "hardware_interface/joint_state_interface.h"
+#include "hardware_interface/joint_command_interface.h"
+#include "hardware_interface/robot_hw.h"
 #include "ros/ros.h"
 
-int main(int argc, char **argv)
+namespace phylax_base
 {
-  ros::init(argc, argv, "phylax_base");
-  ros::NodeHandle n;
+class PhylaxHardware : public hardware_interface::RobotHW
+{
+public:
+  PhylaxHardware();
 
-  return 0;
-}
+private:
+  ros::NodeHandle nh_;
+};
 
+}  // namespace phylax_base
+
+#endif  // PHYLAX_BASE_PHYLAX_HARDWARE_H
