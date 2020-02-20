@@ -32,6 +32,6 @@
 namespace phylax_base
 {
 
-PhylaxHardware::PhylaxHardware();
+PhylaxHardware::PhylaxHardware(){};
 
 }

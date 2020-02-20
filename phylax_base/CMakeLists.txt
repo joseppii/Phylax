@@ -117,7 +117,9 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(phylax_base src/phylax_base.cpp)
+add_executable(phylax_node
+src/phylax_base.cpp
+src/phylax_hardware.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -127,10 +129,10 @@ add_executable(phylax_base src/phylax_base.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+##add_dependencies(phylax_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(phylax_base 
+target_link_libraries(phylax_node 
    ${catkin_LIBRARIES}
 )
 

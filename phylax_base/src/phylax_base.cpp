@@ -31,9 +31,13 @@
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "phylax_base");
-  ros::NodeHandle n;
+  ros::init(argc, argv, "phylax_node");
+  
+  phylax_base::PhylaxHardware phylax;
 
+  ros::NodeHandle n;
+  
+  ROS_INFO("Phylax is coming!");
   return 0;
 }
 
