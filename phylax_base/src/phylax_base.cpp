@@ -25,19 +25,46 @@
 * Please send comments, questions, or patches to the author i.piperakis@gmail.com
 *
 */
-
+#include <controller_manager/controller_manager.h>
 #include "phylax_base/phylax_hardware.h"
-#include "ros/ros.h"
+
+typedef std::chrono::system_clock time_source;
+
+void controlLoopThread(phylax_base::PhylaxHardware *pb, controller_manager::ControllerManager* cm, ros::Rate rate)
+{
+  time_source::time_point last_time = time_source::now();
+
+  while (1)
+  {
+    std::chrono::system_clock::time_point current_time = time_source::now();
+    std::chrono::duration<double> elapsed_time = current_time - last_time;
+    
+    ros::Duration elapsed(elapsed_time.count());
+    last_time = current_time;
+
+    pb->read();
+    cm->update(ros::Time::now(), elapsed);
+    pb->write();
+    rate.sleep();
+  }
+}
 
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "phylax_node");
+  ros::NodeHandle controller_nh("");
   
-  phylax_base::PhylaxHardware phylax;
+  ROS_INFO("Phylax is active!"); 
 
-  ros::NodeHandle n;
+  phylax_base::PhylaxHardware phylax;
+  controller_manager::ControllerManager cm(&phylax, controller_nh);
+
+  std::bind(controlLoopThread, std::ref(phylax), std::ref(cm), ros::Rate(50));
   
-  ROS_INFO("Phylax is coming!");
+  ros::spin();
+  
+  ROS_INFO("Phylax is going for a nap!");
+  
   return 0;
 }
 

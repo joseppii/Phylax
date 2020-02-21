@@ -10,6 +10,7 @@ add_compile_options(-std=c++17)
 find_package(catkin REQUIRED COMPONENTS
   roslaunch
   hardware_interface
+  controller_manager
   roscpp
   rospy
   std_msgs

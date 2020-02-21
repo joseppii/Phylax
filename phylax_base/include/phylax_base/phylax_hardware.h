@@ -30,9 +30,13 @@
 #ifndef PHYLAX_BASE_PHYLAX_HARDWARE_H
 #define PHYLAX_BASE_PHYLAX_HARDWARE_H
 
+#include <controller_manager/controller_manager.h>
+#include "realtime_tools/realtime_publisher.h"
 #include "hardware_interface/joint_state_interface.h"
 #include "hardware_interface/joint_command_interface.h"
 #include "hardware_interface/robot_hw.h"
+#include <std_msgs/Float32.h>
+#include <std_msgs/String.h>
 #include "ros/ros.h"
 
 namespace phylax_base
@@ -42,8 +46,32 @@ class PhylaxHardware : public hardware_interface::RobotHW
 public:
   PhylaxHardware();
 
+  void read();
+  void write();
+
 private:
+  void feedbackCallback(const std_msgs::String::ConstPtr& msg);
+  
   ros::NodeHandle nh_;
+
+  ros::Subscriber feedback_sub_;
+  realtime_tools::RealtimePublisher<std_msgs::Float32> cmd_pub_;
+
+  hardware_interface::JointStateInterface joint_state_interface_;
+  hardware_interface::VelocityJointInterface velocity_joint_interface_;
+
+  struct Joint
+  {
+    double position;
+    double velocity;
+    double effort;
+    double velocity_command;
+
+    Joint() : position(0), velocity(0), effort(0), velocity_command(0)
+    {
+    }
+  }
+  joints_[4];  
 };
 
 }  // namespace phylax_base
