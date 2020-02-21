@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="phylax_base" type="phylax_node" name="phylax_node"/>
+  
+</launch>
