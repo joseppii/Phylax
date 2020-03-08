@@ -8,7 +8,7 @@
     <rosparam command="load" file="$(find phylax_control)/config/twist_mux.yaml" />
     <rosparam param="locks">[]</rosparam>
     <remap from="cmd_vel_out" to="turtle1/cmd_vel"/>
-    <remap from="cmd_vel_out" to="phylax_velocity_controller/cmd_vel"/>
+    <!--remap from="cmd_vel_out" to="phylax_velocity_controller/cmd_vel"/-->
   </node>
 
 </launch> 

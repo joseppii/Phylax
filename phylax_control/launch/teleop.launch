@@ -2,8 +2,9 @@
   <arg name="joy_dev" default="/dev/input/js0" />
   <arg name="joystick" default="true" />
   
-  <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_kbd" output="screen"/>  
-
+  <group ns="keyboard_teleop">
+    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_kbd" output="screen"/>  
+  </group>
   <group ns="joystick_teleop" if="$(arg joystick)">
     <rosparam command="load" file="$(find phylax_control)/config/teleop_ps4.yaml" />
     <node pkg="joy" type="joy_node" name="joy_node" />
