@@ -1,12 +1,15 @@
 <launch>
   <arg name="joy_dev" default="/dev/input/js0" />
   <arg name="joystick" default="true" />
+  
+  <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_kbd" output="screen"/>  
 
   <group ns="joystick_teleop" if="$(arg joystick)">
     <rosparam command="load" file="$(find phylax_control)/config/teleop_ps4.yaml" />
     <node pkg="joy" type="joy_node" name="joy_node" />
     <node pkg="teleop_twist_joy" type="teleop_node" name="teleop_twist_joy"/>
- </group>
-  <node pkg="interactive_marker_twist_server" type="marker_server" name="twist_marker_server"/>
-  
+   </group>
+  <node pkg="interactive_marker_twist_server" type="marker_server" name="twist_marker_server"> 
+    <param name="marker_size_scale" value="2" />
+  </node>
 </launch>
