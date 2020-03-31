@@ -22,8 +22,9 @@
 
         <link name="base_link">
                 <collision>
+                        <origin xyz="0 0 0.02" rpy="0 0 0"/>
                         <geometry>
-                                <box size="0.39 0.188 0.19"/>
+                                <box size="0.37 0.165 0.08"/>
                         </geometry>
                 </collision>
                 <visual>
@@ -45,7 +46,14 @@
                         <geometry>
                                 <mesh filename="package://phylax_description/meshes/wild_thumper_6wd_top.stl" scale="0.001 0.001 0.001" />
                         </geometry>
-                </visual>
+                </visual>                
+                <collision>
+                        <origin xyz="0 0 -0.015" rpy="0 0 0"/>
+                        <geometry>
+                                <box size="0.38 0.12 0.034"/>
+                        </geometry>
+                </collision>
+
         </link>
         <joint name="base_link_joint" type="fixed">
                 <parent link="base_footprint"/>
@@ -59,7 +67,7 @@
                 <origin xyz="0.0 0.0 0.06" rpy="0 0 0"/>
         </joint>
   
-        <xacro:macro name="wheel" params="pos side xyz rpy xyzi rpyi">   
+        <xacro:macro name="wheel" params="pos side xyz rpy xyzi rpyi cy">   
                 <link name="${pos}_${side}_wheel">
                         <visual>
                                 <origin xyz="${xyz}" rpy="${rpy}"/>
@@ -68,9 +76,9 @@
                                 </geometry>
                         </visual>
                         <collision>
-                                <origin xyz="0 0 0" rpy="0 0 0"/>
+                                <origin xyz="0 ${cy} 0" rpy="${PI/2} 0 0"/>
                                 <geometry>
-                                        <cylinder radius="0.06" length="0.06"/>
+                                        <cylinder radius="0.06" length="0.062"/>
                                 </geometry>
                         </collision>
                         <inertial>
@@ -106,12 +114,12 @@
                 </transmission>
         </xacro:macro>
   
-        <xacro:wheel pos="front" side="left"  xyz="-0.15 -0.08 -0.02" rpy="${PI/2} 0 0" xyzi="0.15 0.08 0.0" rpyi="0 0 0" />
-        <xacro:wheel pos="front" side="right" xyz="-0.15 0.08 0.02" rpy="${-PI/2} 0 0" xyzi="0.15 -0.08 0.0" rpyi="0 0 0" />
-        <xacro:wheel pos="center" side="left"  xyz="-0.15 -0.08 -0.02" rpy="${PI/2} 0 0"  xyzi="0.0 0.08 0.0" rpyi="0 0 0"/>
-        <xacro:wheel pos="center" side="right" xyz="-0.15 0.08 0.02" rpy="${-PI/2} 0 0"  xyzi="0.0 -0.08 0.0" rpyi="0 0 0"/>
-        <xacro:wheel pos="rear" side="left"  xyz="-0.15 -0.08 -0.02" rpy="${PI/2} 0 0"  xyzi="-0.15 0.08 0.0" rpyi="0 0 0"/>
-        <xacro:wheel pos="rear" side="right" xyz="-0.15 0.08 0.02" rpy="${-PI/2} 0 0" xyzi="-0.15 -0.08 0.0" rpyi="0 0 0"/>
+        <xacro:wheel pos="front" side="left"  xyz="-0.15 -0.08 -0.02" rpy="${PI/2} 0 0" xyzi="0.15 0.08 0.0" rpyi="0 0 0" cy="0.038"/>
+        <xacro:wheel pos="front" side="right" xyz="-0.15 0.08 0.02" rpy="${-PI/2} 0 0" xyzi="0.15 -0.08 0.0" rpyi="0 0 0" cy="-0.038"/>
+        <xacro:wheel pos="center" side="left"  xyz="-0.15 -0.08 -0.02" rpy="${PI/2} 0 0"  xyzi="0.0 0.08 0.0" rpyi="0 0 0" cy="0.038"/>
+        <xacro:wheel pos="center" side="right" xyz="-0.15 0.08 0.02" rpy="${-PI/2} 0 0"  xyzi="0.0 -0.08 0.0" rpyi="0 0 0" cy="-0.038"/>
+        <xacro:wheel pos="rear" side="left"  xyz="-0.15 -0.08 -0.02" rpy="${PI/2} 0 0"  xyzi="-0.15 0.08 0.0" rpyi="0 0 0" cy="0.038"/>
+        <xacro:wheel pos="rear" side="right" xyz="-0.15 0.08 0.02" rpy="${-PI/2} 0 0" xyzi="-0.15 -0.08 0.0" rpyi="0 0 0" cy="-0.038"/>
   
         <gazebo>
                 <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
