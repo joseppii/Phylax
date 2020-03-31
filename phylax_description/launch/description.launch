@@ -1,21 +1,9 @@
 <launch>
   <arg name="config" default="base" />
-  <!-- fix for oneweek project -->
-  <!--arg name="env_runner" value="$(eval 'env_run' if not optenv('OS', 'unknown').lower().startswith('windows') else 'env_run.bat')" /-->
-  <!-- the following seems to work too when in devel space, but not in install_isolated -->
-  <!-- <arg name="env_runner" value="env_run" /> -->
 
   <param name="robot_description"
          command="$(find xacro)/xacro $(find phylax_description)/urdf/phylax.urdf.xacro --inorder" />
 
-
-  <arg name="gui" default="true" />
-  <arg name="rvizconfig" default="$(find phylax_description)/rviz/urdf.rviz" />
-
-  <param name="use_gui" value="$(arg gui)"/>
-
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <!--node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /-->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
-
 </launch>
