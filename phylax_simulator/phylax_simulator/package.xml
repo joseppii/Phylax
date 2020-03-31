@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>phylax_simulator</name>
+  <version>0.1.0</version>
+  <description>The phylax_simulator packages</description>
+
+  <maintainer email="i.piperakis@gmail.com">Joseph Piperakis</maintainer>
+  <license>BSD</license>
+
+  <!-- <url type="website">http://wiki.ros.org/phylax_simulator</url> -->
+
+  <author email="i.piperakis@gmail.com">Joseph Piperakis</author> -->
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend version_gte="0.1.0">phylax_gazebo</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
