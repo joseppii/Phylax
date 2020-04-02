@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
         <robot name="phylax" xmlns:xacro="http://ros.org/wiki/xacro">
+
+        <xacro:include filename="$(find phylax_description)/urdf/phylax_base.gazebo.xacro" />
         <xacro:property name="PI" value="3.1415926535897931" />
 
         <xacro:property name="chassis_length" value="0.380" />
@@ -106,7 +108,7 @@
                 <transmission name="${pos}_${side}_wheel_trans" type="SimpleTransmission">
                         <type>transmission_interface/SimpleTransmission</type>
                         <joint name="${pos}_${side}_wheel_joint">
-                                <hardwareInterface>VelocityJointInterface</hardwareInterface>
+                                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
                         </joint>
                         <actuator name="{pos}_${side}_wheel_motor">
                                 <mechanicalReduction>1</mechanicalReduction>
@@ -119,13 +121,6 @@
         <xacro:wheel pos="center" side="left"  xyz="-0.15 -0.08 -0.02" rpy="${PI/2} 0 0"  xyzi="0.0 0.08 0.0" rpyi="0 0 0" cy="0.038"/>
         <xacro:wheel pos="center" side="right" xyz="-0.15 0.08 0.02" rpy="${-PI/2} 0 0"  xyzi="0.0 -0.08 0.0" rpyi="0 0 0" cy="-0.038"/>
         <xacro:wheel pos="rear" side="left"  xyz="-0.15 -0.08 -0.02" rpy="${PI/2} 0 0"  xyzi="-0.15 0.08 0.0" rpyi="0 0 0" cy="0.038"/>
-        <xacro:wheel pos="rear" side="right" xyz="-0.15 0.08 0.02" rpy="${-PI/2} 0 0" xyzi="-0.15 -0.08 0.0" rpyi="0 0 0" cy="-0.038"/>
-  
-        <gazebo>
-                <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-                        <robotNamespace>/</robotNamespace>
-                        <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-                </plugin>
-        </gazebo> 
+        <xacro:wheel pos="rear" side="right" xyz="-0.15 0.08 0.02" rpy="${-PI/2} 0 0" xyzi="-0.15 -0.08 0.0" rpyi="0 0 0" cy="-0.038"/>      
  </robot>
 
