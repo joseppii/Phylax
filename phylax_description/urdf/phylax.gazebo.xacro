@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<robot>
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename= "libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/RedGlow</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="chassis_link">
+    <material>Gazebo/BlackTransparent</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+</robot>
