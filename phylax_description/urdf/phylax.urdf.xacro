@@ -1,14 +1,7 @@
 <?xml version="1.0"?>
 <robot name="Phylax" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-
-<material name="Black">
-   <color rgba="0.0 0.0 0.0 1.0"/>
-</material>
-
-<material name="White">
-   <color rgba="1.0 1.0 1.0 1.0"/>
-</material>
+<xacro:include filename="$(find phylax_description)/urdf/phylax.gazebo.xacro" />
 
 <xacro:property name="deg_to_rad" value="0.017453"/>
 <xacro:property name="PI" value="3.14"/>
@@ -43,8 +36,7 @@
 <xacro:macro name="Transmission_block" params="joint_name">
    <transmission name="${joint_name}_trans">
     <type>transmission_interface/SimpleTransmission</type>
-     <joint name="${joint_name}">      <geometry>
-
+     <joint name="${joint_name}">     
        <hardwareInterface>PositionJointInterface</hardwareInterface>
      </joint>
     <actuator name="${joint_name}_motor">
@@ -76,10 +68,9 @@
       <mesh filename="package://phylax_description/meshes/wild_thumper_6wd_chassis.stl" scale="0.001 0.001 0.001"/>
     </geometry>
   </visual>
-  <collision>/>
+  <collision>/><origin rpy="${PI/2} 0 0" xyz="0 0 -0.018"/>
     <geometry>
-    <origin rpy="${PI/2} 0 0" xyz="0 0 -0.018"
-       <mesh filename="package://phylax_description/meshes/wild_thumper_6wd_chassis.stl" scale="0.001 0.001 0.001"/>
+      <mesh filename="package://phylax_description/meshes/wild_thumper_6wd_chassis.stl" scale="0.001 0.001 0.001"/>
     </geometry>
   </collision>
   <xacro:inertial_matrix mass="2.5"/>
@@ -90,10 +81,6 @@
     <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0"/>
   </joint> 
 
- <gazebo reference="chassis_link">
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-
   <link name="top_chassis">
       <visual>
           <origin rpy=" 0 0 0" xyz="-0.16 -0.008 -0.078"/>
@@ -103,14 +90,14 @@
       </visual>
   </link>
 
-    <joint name="top_chassis_joint" type="fixed">
-        <parent link="chassis_link"/>
-        <child link="top_chassis"/>
-        <origin rpy="0 0 0" xyz="0.0 0.0 0.058"/>
-        <axis xyz="0 1 0"/>
-        <limit effort="100" velocity="100"/>
-        <dynamics damping="0.0" friction="0.0"/>
-    </joint>    
+  <joint name="top_chassis_joint" type="fixed">
+    <parent link="chassis_link"/>
+    <child link="top_chassis"/>
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.058"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="100" velocity="100"/>
+    <dynamics damping="0.0" friction="0.0"/>
+  </joint>    
 
 <xacro:macro name="wheel" params="pos side xyz xyzi cy">   
   <link name="${pos}_${side}_wheel">
@@ -165,13 +152,4 @@
 <xacro:wheel pos="center" side="right" xyz="-0.023 -${chassis_width-0.02} 0.068" xyzi="0 -${chassis_width/2} 0" cy="-0.036"/>
 <xacro:wheel pos="rear" side="left" xyz="-0.023 -${chassis_width/2-0.01} 0.068" xyzi="-0.150 ${chassis_width/2} 0" cy="0.036"/>
 <xacro:wheel pos="rear" side="right" xyz="-0.023 -${chassis_width-0.02} 0.068" xyzi="-0.150 -${chassis_width/2} 0" cy="-0.036"/> 
-
-<!-- ros_control plugin-->
-
-<gazebo>
-  <plugin name="gazebo_ros_control" filename= "libgazebo_ros_control.so">
-   <robotNamespace>/</robotNamespace>
-  </plugin>
-</gazebo>
-
 </robot>
