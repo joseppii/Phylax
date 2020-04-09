@@ -5,7 +5,7 @@
   <arg name="world_name" default="$(find phylax_gazebo)/worlds/phylax_race.world" />
 
   <arg name="lidar" default="false" />
-  <arg name="default_config" value="front_laser" if="$(arg lidar)" />
+  <arg name="default_config" value="lidar" if="$(arg lidar)" />
   <arg name="default_config" value="base" unless="$(arg lidar)" /> 
 
   <!-- Configuration of Phylax simulation. See phylax_description for details. -->
@@ -22,15 +22,20 @@
 
   <!-- Load Phylax's description, controllers, and teleop nodes. -->
   <include file="$(find phylax_description)/launch/description.launch">
-    <arg name="config" value="$(arg config)" />
+    <!--arg name="config" value="$(arg config)" /-->
   </include>
   <include file="$(find phylax_control)/launch/control.launch" />
   <include file="$(find phylax_control)/launch/teleop.launch">
-    <arg name="joystick" value="false"/>
+    <arg name="joystick" value="true"/>
   </include>
 
   <!-- Spawn Phylax -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
 	      args="-urdf -model phylax -param robot_description -x 0 -y 0 -z 1.0" />
+
+<node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+  <param name="default_topic" value="/phylax/diff_drive_controller/cmd_vel"/> 
+</node>
+        
 </launch>
 
