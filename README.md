@@ -1,8 +1,12 @@
 # Phylax
 
+[//]: # (Image References)
+
+[image1]: ./images/phylax.png "Rendered image" 
+
 ROS Packages for Phylax, a 6wd autonomous vehicle based on the wild thumper platform.
 
-[](images/phylax.png?raw=true)
+![alt text][image1] 
 
-<script src="https://embed.github.com/view/3d/joseppii/Phylax/master/images/wild_thumper_6wd.stl"></script>
+
                                             
