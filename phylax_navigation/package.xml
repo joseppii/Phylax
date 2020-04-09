@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>phylax_navigation</name>
+  <version>0.1.0</version>
+  <description>The phylax_navigation package</description>
+
+  <maintainer email="i.piperakis@gmail.com">Joseph Piperakis</maintainer>
+  <license>BSD</license>
+  <!-- <url type="website">http://wiki.ros.org/phylax_navigation</url> -->
+  <author email="i.piperakis@gmail.com">Joseph Piperakis</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roslaunch</build_depend>
+  <exec_depend>amcl</exec_depend>
+  <exec_depend>gmapping</exec_depend>
+  <exec_depend>map_server</exec_depend>
+  <exec_depend>move_base</exec_depend>
+  <exec_depend>urdf</exec_depend>
+  <exec_depend>xacro</exec_depend>
+
+  <export>
+  </export>
+</package>
