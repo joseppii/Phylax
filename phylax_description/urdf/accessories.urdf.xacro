@@ -15,9 +15,9 @@
                           topic="$(optenv PHYLAX_LASER_TOPIC front/scan)" />
 
       <joint name="$(optenv PHYLAX_LASER_MOUNT front)_laser_mount_joint" type="fixed">
-        <origin xyz="$(optenv PHYLAX_LASER_OFFSET 0.11 0 0)"
+        <origin xyz="$(optenv PHYLAX_LASER_OFFSET 0 0 0)"
                 rpy="$(optenv PHYLAX_LASER_RPY 0 0 0)" />
-        <parent link="$(optenv PHYLAX_LASER_MOUNT front)_mount" />
+        <parent link="top_chassis" />
         <child link="$(optenv PHYLAX_LASER_MOUNT front)_laser_mount" />
       </joint>
     </xacro:if>
