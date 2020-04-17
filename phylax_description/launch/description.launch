@@ -1,12 +1,11 @@
 <?xml version="1.0"?>
-
-
 <launch>
-<param name="robot_description"
-         command="$(find xacro)/xacro $(find phylax_description)/urdf/phylax.urdf.xacro --inorder" />
+  <arg name="config" default="base" />
 
- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
-
-
-
+  <param name="robot_description"
+         command="$(find phylax_description)/scripts/env_run
+                  $(find phylax_description)/urdf/configs/$(arg config)
+                  $(find xacro)/xacro $(find phylax_description)/urdf/phylax.urdf.xacro
+                  --inorder" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 </launch>
