@@ -153,6 +153,6 @@
 <xacro:wheel pos="rear" side="left" xyz="-0.023 -${chassis_width/2-0.01} 0.068" xyzi="-0.150 ${chassis_width/2} 0" cy="0.036"/>
 <xacro:wheel pos="rear" side="right" xyz="-0.023 -${chassis_width-0.02} 0.068" xyzi="-0.150 -${chassis_width/2} 0" cy="-0.036"/> 
 
- <xacro:include filename="$(find jackal_description)/urdf/accessories.urdf.xacro" />
+ <xacro:include filename="$(find phylax_description)/urdf/accessories.urdf.xacro" />
 
 </robot>
