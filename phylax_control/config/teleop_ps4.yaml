@@ -3,7 +3,7 @@
     axis_linear: 1
     scale_linear: 0.4
     scale_linear_turbo: 2.0
-    axis_angular: 0
+    axis_angular: 3
     scale_angular: 1.4
     enable_button: 4
     enable_turbo_button: 5
@@ -11,3 +11,4 @@
     deadzone: 0.1
     autorepeat_rate: 20
     dev: /dev/input/js0
+
