@@ -4,9 +4,9 @@
   <arg name="headless" default="false" />
   <arg name="world_name" default="$(find phylax_gazebo)/worlds/phylax_race.world" />
 
-  <arg name="lidar" default="false" />
-  <arg name="default_config" value="lidar" if="$(arg lidar)" />
-  <arg name="default_config" value="base" unless="$(arg lidar)" /> 
+  <arg name="front_laser" default="false" />
+  <arg name="default_config" value="front_laser" if="$(arg front_laser)" />
+  <arg name="default_config" value="base" unless="$(arg front_laser)" /> 
 
   <!-- Configuration of Phylax simulation. See phylax_description for details. -->
   <arg name="config" default="$(arg default_config)" />
