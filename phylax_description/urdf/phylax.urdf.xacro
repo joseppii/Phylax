@@ -15,6 +15,8 @@
 <xacro:property name="wheel_height" value="0.12"/>
 <xacro:property name="wheel_mass" value=".480"/>
 
+<xacro:property name="dummy_inertia" value="1e-09"/>
+
 <xacro:macro name="cylinder_inertia" params ="m r h">
   <inertial>
    <mass value="${m}"/>
@@ -98,6 +100,37 @@
     <limit effort="100" velocity="100"/>
     <dynamics damping="0.0" friction="0.0"/>
   </joint>    
+  
+  <!-- TODO: Make this internal_imu_link or something, and use a mixed-in xacro
+       to supply the joint between it and imu_link. This is important so that imu_link
+       always points to the "active" IMU. When an upgrade IMU is connected, the
+       internal_imu_link should remain, but imu_link should point to the upgrade one. -->
+  <link name="imu_link">
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="-0.12 0 0" rpy="0 0 0"/>
+      <inertia ixx="${dummy_inertia}" ixy="0.0" ixz="0.0" iyy="${dummy_inertia}" iyz="0.0" izz="${dummy_inertia}"/>
+    </inertial>
+  </link>
+  <joint name="imu_joint" type="fixed">
+    <parent link="top_chassis" />
+    <child link="imu_link" />
+  </joint>
+
+  <link name="navsat_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.026" length="0.016" />
+      </geometry>
+      <origin xyz="0 0 0.0" />
+      <material name="black" />
+    </visual>
+  </link>
+  <joint name="navsat_joint" type="fixed">
+    <parent link="top_chassis" />
+    <child link="navsat_link" />
+    <origin xyz="0.120 0.0 0.0" />
+  </joint>
 
 <xacro:macro name="wheel" params="pos side xyz xyzi cy">   
   <link name="${pos}_${side}_wheel">
@@ -153,6 +186,12 @@
 <xacro:wheel pos="rear" side="left" xyz="-0.023 -${chassis_width/2-0.01} 0.068" xyzi="-0.150 ${chassis_width/2} 0" cy="0.036"/>
 <xacro:wheel pos="rear" side="right" xyz="-0.023 -${chassis_width-0.02} 0.068" xyzi="-0.150 -${chassis_width/2} 0" cy="-0.036"/> 
 
- <xacro:include filename="$(find phylax_description)/urdf/accessories.urdf.xacro" />
+  <!-- Optional standard accessories, including their simulation data. The rendering
+       of these into the final description is controlled by optenv variables, which
+       default each one to off.-->
+  <xacro:include filename="$(find phylax_description)/urdf/accessories.urdf.xacro" />
+
+  <!-- Optional custom includes. -->
+  <xacro:include filename="$(optenv JACKAL_URDF_EXTRAS empty.urdf)" />
 
 </robot>
