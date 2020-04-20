@@ -1,16 +1,22 @@
 topics:
-- 
-  name    : keyboard
+- name    : keyboard
   topic   : keyboard_teleop/cmd_vel
   timeout : 0.5
-  priority: 90 
-- 
-  name    : joystick_teleop
+  priority: 9 
+- name    : joystick_teleop
   topic   : joystick_teleop/cmd_vel
   timeout : 0.5
-  priority: 95
-- 
-  name    : interactive_marker
+  priority: 10
+- name    : interactive_marker
   topic   : twist_marker_server/cmd_vel
   timeout : 0.5
-  priority: 60
+  priority: 8
+- name    : autonav
+  topic   : cmd_vel
+  timeout : 0.5
+  priority: 1
+locks:
+- name    : e_stop
+  topic   : e_stop
+  timeout : 0.0
+  priority: 255  

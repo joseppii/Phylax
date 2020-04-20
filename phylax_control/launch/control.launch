@@ -3,8 +3,8 @@
 
   <node name="controller_spawner" pkg="controller_manager" type="spawner"
         respawn="true" output="screen"
-        args="/phylax/joint_state_controller
-              /phylax/diff_drive_controller 
+        args="joint_state_controller
+              diff_drive_controller 
               --shutdown-timeout 3"/>
 
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
@@ -14,7 +14,7 @@
   <node pkg="twist_mux" type="twist_mux" name="twist_mux">
     <rosparam command="load" file="$(find phylax_control)/config/twist_mux.yaml" />
     <rosparam param="locks">[]</rosparam>
-    <remap from="cmd_vel_out" to="/phylax/diff_drive_controller/cmd_vel"/>
+    <remap from="cmd_vel_out" to="/diff_drive_controller/cmd_vel"/>
   </node>
 
 </launch> 
