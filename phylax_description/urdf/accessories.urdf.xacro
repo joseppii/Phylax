@@ -10,19 +10,6 @@
   <!-- If enabled, generate the LASER payload (by default, a SICK LMS111). -->
   <xacro:if value="$(optenv PHYLAX_LASER 0)">
     <xacro:if value="$(optenv PHYLAX_LASER_HOKUYO 0)">
-      <xacro:include filename="$(find phylax_description)/urdf/accessories/hokuyo_ust10.urdf.xacro" />
-      <hokuyo_ust10_mount prefix="$(optenv PHYLAX_LASER_MOUNT front)"
-                          topic="$(optenv PHYLAX_LASER_TOPIC front/scan)" />
-
-      <joint name="$(optenv PHYLAX_LASER_MOUNT front)_laser_mount_joint" type="fixed">
-        <origin xyz="$(optenv PHYLAX_LASER_OFFSET 0 0 0)"
-                rpy="$(optenv PHYLAX_LASER_RPY 0 0 0)" />
-        <parent link="top_chassis" />
-        <child link="$(optenv PHYLAX_LASER_MOUNT front)_laser_mount" />
-      </joint>
-    </xacro:if>
-
-    <xacro:unless value="$(optenv PHYLAX_LASER_HOKUYO 0)">
       <xacro:include filename="$(find phylax_description)/urdf/accessories/sick_lms1xx_mount.urdf.xacro" />
       <sick_lms1xx_mount prefix="$(optenv PHYLAX_LASER_MOUNT front)"
                          topic="$(optenv PHYLAX_LASER_TOPIC front/scan)"/>
@@ -33,22 +20,13 @@
         <parent link="top_chassis" />
         <child link="$(optenv PHYLAX_LASER_MOUNT front)_laser_mount" />
       </joint>
-    </xacro:unless>
-  </xacro:if>
-
-  <xacro:unless value="$(optenv PHYLAX_LASER_VLP-16 0)">
+    </xacro:if> 
+    <xacro:unless value="$(optenv PHYLAX_LASER_VELODYNE 0)">
       <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
       <VLP-16 parent="top_chassis" name="velodyne" topic="/velodyne_points">
         <origin xyz="0 0 0" rpy="0 0 0" />
       </VLP-16>
-
-    <joint name="$(optenv PHYLAX_LASER_MOUNT front)_laser_mount_joint" type="fixed">
-      <origin xyz="$(optenv PHYLAX_LASER_OFFSET 0 0 0)"
-              rpy="$(optenv PHYLAX_LASER_RPY 0 0 0)" />
-      <parent link="top_chassis" />
-      <child link="$(optenv PHYLAX_LASER_MOUNT front)_laser_mount" />
-    </joint>
-  </xacro:unless>
+    </xacro:unless>
 </xacro:if>
 
   <!-- If enabled, generate the upgraded Navsat payload (a Novatel Smart6). -->
@@ -65,3 +43,5 @@
     </joint>
   </xacro:if>
 </robot>
+
+
