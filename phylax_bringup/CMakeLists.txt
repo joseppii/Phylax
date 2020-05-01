@@ -3,9 +3,7 @@ project(phylax_bringup)
 
 add_compile_options(-std=c++17)
 
-find_package(catkin REQUIRED)
-
-find_package(Boost REQUIRED COMPONENTS roslaunch)
+find_package(catkin REQUIRED COMPONENTS roslaunch)
 
 catkin_package()
 

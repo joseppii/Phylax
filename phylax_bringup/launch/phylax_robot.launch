@@ -1,6 +1,7 @@
 <launch>
   <group if="$(optenv PHYLAX_LASER 0)">
     <include file="$(find phylax_bringup)/launch/phylax_lidar.launch"/>
+    <include file="$(find phylax_navigation)/launch/phylax_gmapping.launch"/>
   </group>
 
 </launch>
