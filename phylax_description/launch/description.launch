@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="config" default="base" />
+  <arg name="config" default="front_laser" />
 
   <param name="robot_description"
          command="$(find phylax_description)/scripts/env_run
