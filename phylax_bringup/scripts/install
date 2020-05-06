@@ -3,7 +3,8 @@
 import os
 import robot_upstart
 
-j = robot_upstart.Job(workspace_setup=os.environ['ROBOT_SETUP'])
+j = robot_upstart.Job(workspace_setup=os.environ['PHYLAX_SETUP'])
 j.add(package="phylax_base", filename="launch/phylax.launch")
-j.add(package="jackal_bringup", filename="launch/phylax_lidar.launch")
+j.add(package="phylax_bringup", filename="launch/phylax_lidar.launch")
+j.add(package="mavros", filename="launch/px4.launch")
 j.install()

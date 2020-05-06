@@ -1,7 +1,4 @@
 <launch>
-  <group if="$(optenv PHYLAX_LASER 0)">
     <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch"/>
     <include file="$(find phylax_description)/launch/point2laser.launch"/>
-  </group>
-
 </launch>
