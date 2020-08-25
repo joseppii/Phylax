@@ -1,0 +1,15 @@
+<launch>
+
+  <!--include file="$(find phylax_description)/launch/description.launch" /-->
+
+  <node pkg="phylax_base" type="simple_joy_node" name="simple_joy_node" output="screen">
+    <remap from="/cmd_drive" to="/phylax_node/cmd_drive" />
+</node>
+
+
+  <node pkg="rosserial_server" type="socket_node" name="rosserial_server" />
+  <node pkg="rosserial_python" type="message_info_service.py" name="rosserial_message_info" />
+
+  <node pkg="pololu_driver" type="pololu_driver_node" name="pololu_driver_node" />
+
+</launch>
