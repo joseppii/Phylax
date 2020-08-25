@@ -29,7 +29,7 @@
 
 #ifndef PHYLAX_BASE_PHYLAX_HARDWARE_H
 #define PHYLAX_BASE_PHYLAX_HARDWARE_H
-
+#include "boost/thread.hpp"
 #include <controller_manager/controller_manager.h>
 #include "realtime_tools/realtime_publisher.h"
 #include "hardware_interface/joint_state_interface.h"
@@ -37,6 +37,8 @@
 #include "hardware_interface/robot_hw.h"
 #include <std_msgs/Float32.h>
 #include <std_msgs/String.h>
+#include "phylax_msgs/Drive.h"
+#include "phylax_msgs/Feedback.h"
 #include "ros/ros.h"
 
 namespace phylax_base
@@ -50,12 +52,12 @@ public:
   void write();
 
 private:
-  void feedbackCallback(const std_msgs::String::ConstPtr& msg);
+  void feedbackCallback(const phylax_msgs::Feedback::ConstPtr& msg);
   
   ros::NodeHandle nh_;
 
   ros::Subscriber feedback_sub_;
-  realtime_tools::RealtimePublisher<std_msgs::Float32> cmd_pub_;
+  realtime_tools::RealtimePublisher<phylax_msgs::Drive> cmd_pub_;
 
   hardware_interface::JointStateInterface joint_state_interface_;
   hardware_interface::VelocityJointInterface velocity_joint_interface_;
@@ -71,7 +73,10 @@ private:
     {
     }
   }
-  joints_[4];  
+  joints_[6];  
+  
+  phylax_msgs::Feedback::ConstPtr feedback_msg_;
+  boost::mutex feedback_mutex_;
 };
 
 }  // namespace phylax_base

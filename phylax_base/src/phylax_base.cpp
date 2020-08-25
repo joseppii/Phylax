@@ -25,6 +25,7 @@
 * Please send comments, questions, or patches to the author i.piperakis@gmail.com
 *
 */
+#include <boost/thread.hpp>
 #include <controller_manager/controller_manager.h>
 #include "phylax_base/phylax_hardware.h"
 
@@ -33,12 +34,11 @@ typedef std::chrono::system_clock time_source;
 void controlLoopThread(phylax_base::PhylaxHardware *pb, controller_manager::ControllerManager* cm, ros::Rate rate)
 {
   time_source::time_point last_time = time_source::now();
-
+  
   while (1)
   {
     std::chrono::system_clock::time_point current_time = time_source::now();
     std::chrono::duration<double> elapsed_time = current_time - last_time;
-    
     ros::Duration elapsed(elapsed_time.count());
     last_time = current_time;
 
@@ -59,7 +59,7 @@ int main(int argc, char **argv)
   phylax_base::PhylaxHardware phylax;
   controller_manager::ControllerManager cm(&phylax, controller_nh);
 
-  std::bind(controlLoopThread, std::ref(phylax), std::ref(cm), ros::Rate(50));
+  boost::thread(boost::bind(controlLoopThread, &phylax, &cm, ros::Rate(50)));
   
   ros::spin();
   

@@ -15,10 +15,11 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   sensor_msgs
+  phylax_msgs
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS thread)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -102,7 +103,7 @@ find_package(catkin REQUIRED COMPONENTS
 ###################################
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS hardware_interface roscpp std_msgs sensor_msgs
+  CATKIN_DEPENDS hardware_interface roscpp std_msgs sensor_msgs 
 )
 
 ###########
@@ -112,7 +113,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
- include ${catkin_INCLUDE_DIRS}
+ include ${Boost_INCLUDE_DIRS} include ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ executable
@@ -130,10 +131,16 @@ src/phylax_hardware.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-##add_dependencies(phylax_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(phylax_node phylax_msgs_gencpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(phylax_node 
    ${catkin_LIBRARIES}
 )
+
+add_executable(phylax_simple_joy_node src/simple_joy_node.cpp)
+target_link_libraries(phylax_simple_joy_node ${catkin_LIBRARIES})
+set_target_properties(phylax_simple_joy_node
+  PROPERTIES OUTPUT_NAME simple_joy_node PREFIX "")
+add_dependencies(phylax_simple_joy_node phylax_msgs_gencpp)
 
