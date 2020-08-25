@@ -2,11 +2,16 @@
 
   <include file="$(find phylax_description)/launch/description.launch" />
   
-  <node pkg="phylax_base" type="phylax_node" name="phylax_node"/>
+  <node pkg="phylax_base" type="phylax_node" name="phylax_node" output="screen">
+    <remap from="/phylax_node/feedback" to="feedback" />
+</node>
+    
   
-  <include file="$(find phylax_control)/launch/control.launch" />
+  <node pkg="rosserial_server" type="socket_node" name="rosserial_server" />
+  <node pkg="rosserial_python" type="message_info_service.py" name="rosserial_message_info" />
 
+  <include file="$(find phylax_control)/launch/control.launch" />
   <!-- Teleoperation via joystick and rviz interactive markers -->
-  <include file="$(find phylax_control)/launch/teleop.launch" />
+  <!--include file="$(find phylax_control)/launch/teleop.launch" /-->
 
 </launch>
